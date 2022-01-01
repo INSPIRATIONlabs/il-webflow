@@ -1,3 +1,6 @@
+console.clear();
+
+
 var vw = window.innerWidth;
 var vh = window.innerHeight;
 
@@ -6,8 +9,6 @@ var minWidth = vw * 0.19;
 var maxWidth = vw * 0.29;
 var bubbleHeight = minWidth;
 var itemNames = ['software', 'coaching', 'workspace', 'infrastructure']; 
-
-var elastic = Elastic.easeOut.config(0.3, 0.3);
 
 var bubbles = [];
 
@@ -102,19 +103,6 @@ function animateBubble(bubble) {
     bubble.elements[i].style.top = bubble.top + 'px';
     bubble.elements[i].style.left = bubble.left + 'px';  
   }
-  /*  
-  TweenLite.set(bubble.element, {
-    width: bubble.width,
-    x: bubble.left,
-    y: vh
-  });*/
-  
-  /*
-  var tl = new TimelineLite({ onComplete: placeBubble, onCompleteParams: [bubble] })
-    .to(bubble.element, random(0.5, 2), { autoAlpha: 1, y: bubble.top, ease: elastic }, random(10))
-    .add("leave", "+=" + random(5, 10))
-    .add(function() { bubble.placed = false; }, "leave") // When bubble is leaving, it is no longer placed
-    .to(bubble.element, random(0.5, 2), { autoAlpha: 0, y: -vh }, "leave");*/
 }
 
 function createBubble(elements) {
