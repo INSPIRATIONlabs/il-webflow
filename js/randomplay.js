@@ -1,6 +1,5 @@
 console.clear();
 
-
 var vw = window.innerWidth;
 var vh = window.innerHeight;
 
@@ -14,16 +13,10 @@ var bubbles = [];
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    /**
-    for (var i = 0; i < 4; i++) {
-        var bubble = createBubble(i);
-        bubbles.push(bubble);  
-        placeBubble(bubble);
-    }**/
-
     var containers = document.querySelectorAll('.sym-container');
+    if (!containers.length) return;
     for (var c = 0; c < containers.length; c++) {
-        console.log('next run');
+        // console.log('next run');
         bubbles = [];
         // random sort items
         // fisherYatesShuffle(itemNames);
@@ -32,12 +25,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
         for (var i = 0; i < itemNames.length; i++) {
             var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
-            var bubble = createBubble(els);
-            bubbles.push(bubble);
-            placeBubble(bubble);
+            if (els.length) {
+              var bubble = createBubble(els);
+              bubbles.push(bubble);
+              placeBubble(bubble);
+            }
         }
-    
-        // console.log(itemNames);    
     }
     (function () {
         const scroll = new LocomotiveScroll({
@@ -106,7 +99,7 @@ function animateBubble(bubble) {
 }
 
 function createBubble(elements) {
-    
+  
   return {
     elements: elements,
     placed: false,
