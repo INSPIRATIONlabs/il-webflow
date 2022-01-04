@@ -1,4 +1,4 @@
-console.clear();
+// console.clear();
 
 var vw = window.innerWidth;
 var vh = window.innerHeight;
@@ -35,8 +35,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     (function () {
         const scroll = new LocomotiveScroll({
             el: document.querySelector('[data-scroll-container]'),
-    smooth: true
+            smooth: true
         });
+        scroll.on('scroll', (args) => changeOpacityEls());
     })();
 });
 
@@ -134,4 +135,69 @@ function randomInt(min, max) {
   if (max == null) { max = min; min = 0; }
   if (min > max) { var tmp = min; min = max; max = tmp; }
   return Math.floor(min + (max - min + 1) * Math.random());
+}
+
+
+function changeOpacityEls() {
+  var els = document.getElementsByClassName('saturate');
+  console.log(els);
+  for(let i=0; i<els.length; i++) {
+  	var el = els[i];
+    changeOpacity(el);
+  }
+  els = document.getElementsByClassName('unleash');
+  for(let i=0; i<els.length; i++) {
+  	var el = els[i];
+    unleash(el);
+  }
+  console.log(els);
+}
+
+
+function changeOpacity(el) {
+  var rect = el.getBoundingClientRect();
+  var top = rect.top;
+  var scrollY = window.scrollY;
+  var inView = false;
+  var pct = 100;
+  var diff = (scrollY - (top*-1));
+  
+  if(isInView(rect)) {
+    if(diff < winHeight) {	// image is placed already in viewport at start
+    	inView = true;
+    	pct = (-1 * top) / (rect.height / 5);
+    } else {
+    	top = top - (winHeight / 3);
+      	pct = (-1 * top) / (rect.height / 2);
+    	console.log({rect, top, winHeight, diff, scrollY, pct, inView});
+    }
+    el.style.filter = 'saturate('+(pct)+')';
+  }
+}
+
+function unleash(el) {
+  var rect = el.getBoundingClientRect();
+  var top = rect.top;
+  var scrollY = window.scrollY;
+  var inView = false;
+  var pct = 100;
+  var diff = (scrollY - (top*-1));
+  
+  if(isInView(rect)) {
+    if(diff < winHeight) {	// image is placed already in viewport at start
+    	inView = true;
+    	pct = 1 - (-1 * top) / (rect.height / 5);
+    } else {
+    	top = top - (winHeight / 3);
+      	pct = 1 - (-1 * top) / (rect.height / 2);
+    	// console.log({rect, top, winHeight, diff, scrollY, pct, inView});
+    }
+    pct = Math.max(pct, 0.2);
+    el.style.opacity = pct;
+  }
+}
+
+function isInView(rect) {
+  if(rect.bottom > 0 && rect.top < winHeight) return true;
+  return false;
 }
