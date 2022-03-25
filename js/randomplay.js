@@ -14,21 +14,22 @@ var bubbles = [];
 document.addEventListener('DOMContentLoaded', (event) => {
 
     var containers = document.querySelectorAll('.sym-container');
-    if (!containers.length) return;
-    for (var c = 0; c < containers.length; c++) {
-        // console.log('next run');
-        bubbles = [];
-        // random sort items
-        // fisherYatesShuffle(itemNames);
-        // @todo: remove items or double ones
-        var parent = containers[c];
-    
-        for (var i = 0; i < itemNames.length; i++) {
-            var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
-            if (els.length) {
-              var bubble = createBubble(els);
-              bubbles.push(bubble);
-              placeBubble(bubble);
+    if (containers.length) {
+        for (var c = 0; c < containers.length; c++) {
+            // console.log('next run');
+            bubbles = [];
+            // random sort items
+            // fisherYatesShuffle(itemNames);
+            // @todo: remove items or double ones
+            var parent = containers[c];
+
+            for (var i = 0; i < itemNames.length; i++) {
+                var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
+                if (els.length) {
+                  var bubble = createBubble(els);
+                  bubbles.push(bubble);
+                  placeBubble(bubble);
+                }
             }
         }
     }
