@@ -38,7 +38,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             el: document.querySelector('[data-scroll-container]'),
             smooth: true
         });
-        scroll.on('scroll', (args) => changeOpacityEls());
+        scroll.on('scroll', (instance) => {
+            changeOpacityEls();
+            if (instance.scroll.y > 100) {
+                console.log("menu small");
+            } else {
+                console.log("menu large");
+            }
+        });
     })();
 });
 
