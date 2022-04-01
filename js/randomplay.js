@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         scroll.on('scroll', (instance) => {
             changeOpacityEls();
             if (instance.scroll.y > 100) {
-                Document.querySelector('.main-navigation').classList.add('menu-shrink');
+                document.querySelector('.main-navigation').classList.add('menu-shrink');
             } else {
-                Document.querySelector('.main-navigation').classList.remove('menu-shrink');
+                document.querySelector('.main-navigation').classList.remove('menu-shrink');
             }
         });
     })();
