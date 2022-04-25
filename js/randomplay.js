@@ -36,15 +36,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     (function () {
         const scroll = new LocomotiveScroll({
             el: document.querySelector('[data-scroll-container]'),
-            smooth: true
+            smooth: true,
+            getDirection: true
         });
         scroll.on('scroll', (instance) => {
             changeOpacityEls();
-            if (instance.scroll.y > 100) {
-                document.querySelector('.main-navigation').classList.add('menu-shrink');
+            const h = document.documentElement;
+            // console.log(instance.scroll.y);
+
+            h.classList.toggle("direction-up", instance.direction == "up");
+            h.classList.toggle("direction-down", instance.direction == "down");
+            h.classList.toggle("is-top", instance.scroll.y < 100);
+            h.classList.toggle("is-not-top", 100 <= instance.scroll.y);
+
+            /*if (instance.scroll.y > 0) {
+              document.querySelector('.main-navigation').classList.add('menu-shrink');
             } else {
-                document.querySelector('.main-navigation').classList.remove('menu-shrink');
-            }
+              document.querySelector('.main-navigation').classList.remove('menu-shrink');
+            }*/
         });
     })();
 });
@@ -59,7 +68,7 @@ function fisherYatesShuffle(arr){
 }
 
 function placeBubble(bubble) {
-  console.log(bubble.elements[0].className);
+  // console.log(bubble.elements[0].className);
   bubble.placed = true;
 //   bubble.width  = randomInt(minWidth, maxWidth);  
   bubble.left   = randomInt(pad, vw - (bubble.width + pad));
@@ -93,7 +102,7 @@ function placeBubble(bubble) {
     
     // Can't place bubble. Try again on next animation frame
     // requestAnimationFrame(function() {
-        console.log('trya');
+        // console.log('trya');
         placeBubble(bubble);
     // });
   }
@@ -148,7 +157,7 @@ function randomInt(min, max) {
 
 function changeOpacityEls() {
   var els = document.getElementsByClassName('saturate');
-  console.log(els);
+  // console.log(els);
   for(let i=0; i<els.length; i++) {
   	var el = els[i];
     changeOpacity(el);
@@ -158,7 +167,7 @@ function changeOpacityEls() {
   	var el = els[i];
     unleash(el);
   }
-  console.log(els);
+  // console.log(els);
 }
 
 
@@ -177,7 +186,7 @@ function changeOpacity(el) {
     } else {
     	top = top - (winHeight / 3);
       	pct = (-1 * top) / (rect.height / 2);
-    	console.log({rect, top, winHeight, diff, scrollY, pct, inView});
+    	// console.log({rect, top, winHeight, diff, scrollY, pct, inView});
     }
     el.style.filter = 'saturate('+(pct)+')';
   }
