@@ -2,7 +2,7 @@
 
 var vw = window.innerWidth;
 var vh = window.innerHeight;
-
+alert("Hey");
 var pad = 26;
 var minWidth = vw * 0.19;
 var maxWidth = vw * 0.29;
@@ -10,9 +10,6 @@ var bubbleHeight = minWidth;
 var itemNames = ['software', 'coaching', 'workspace', 'infrastructure']; 
 
 var bubbles = [];
-
-var symnames = {'M':'workspace', 'X':'software', 'O':'coaching', 'A':'infrastructure'};
-var symposes = ['top', 'left'];
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
@@ -25,48 +22,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // fisherYatesShuffle(itemNames);
             // @todo: remove items or double ones
             var parent = containers[c];
-            if(parent.dataset.symorder && parent.dataset.sympos) {
-              var items = parent.dataset.symorder.split(' ');
-              var positions = parent.dataset.sympos.split(';');
-              var cnt = 0;
-              items.forEach(id => {
-                var els = parent.querySelectorAll('.sym-competence.'+symnames[id]);
-                if (els.length) {
-                  for(var e = 0; e < els.length; e++) {
-                    if(positions[cnt]) {
-                      var pos = positions[cnt].split(',');
-                      var top = pos[0];
-                      var left = pos[1];
-                      els[e].style.position = 'absolute';
-                      els[e].style.top = top;
-                      els[e].style.left = left;  
-                    } else {
-                      els[e].style.display = 'none';
-                    }
-                  }
-                }
-                cnt++;
-              });
-              console.log(positions);
-              //var positions = parent.dataset.sym
 
-            } else {
-              for (var i = 0; i < itemNames.length; i++) {
-                  var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
-                  if (els.length) {
-                    if (itemNames[i] == 'coaching') {
-                      console.log("asdsoftware");
-                      for(var e = 0; e < els.length; e++) {
-                        els[e].style.position = 'absolute';
-                        els[e].style.top = '25%';
-                        els[e].style.left = '40%';  
-                      }
-                    }
-                    //var bubble = createBubble(els);
-                    //bubbles.push(bubble);
-                    //placeBubble(bubble);
-                  }
-              }
+            for (var i = 0; i < itemNames.length; i++) {
+                var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
+                if (els.length) {
+                  var bubble = createBubble(els);
+                  bubbles.push(bubble);
+                  placeBubble(bubble);
+                }
             }
         }
     }
@@ -107,19 +70,22 @@ function fisherYatesShuffle(arr){
 function placeBubble(bubble) {
   // console.log(bubble.elements[0].className);
   bubble.placed = true;
-  // bubble.width  = randomInt(minWidth, maxWidth);  
+//   bubble.width  = randomInt(minWidth, maxWidth);  
   bubble.left   = randomInt(pad, vw - (bubble.width + pad));
   bubble.top    = randomInt(pad, vh - (bubble.height + pad));
   bubble.right  = bubble.left + bubble.width;
   bubble.bottom = bubble.top  + bubble.height;
-  //   console.log(bubble);
+//   console.log(bubble);
   // Loop through all bubbles
   for (var i = 0; i < bubbles.length; i++) {
+    
     var b = bubbles[i];
+    
     // Skip if b is this bubble or isn't placed
     if (b === bubble || !b.placed) {
       continue;
     }
+    
     // Collision detected, can't place bubble
     if (intersects(bubble, b)) {
       bubble.placed = false;
@@ -128,9 +94,12 @@ function placeBubble(bubble) {
   }
   
   if (bubble.placed) {    
+    
     // No collisions detected. It's place is reserved and we can animate to it
-    animateBubble(bubble);
+    animateBubble(bubble);    
+    
   } else {        
+    
     // Can't place bubble. Try again on next animation frame
     // requestAnimationFrame(function() {
         // console.log('trya');
