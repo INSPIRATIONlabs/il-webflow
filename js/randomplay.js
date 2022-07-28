@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // @todo: remove items or double ones
             var parent = containers[c];
             if(parent.dataset.symorder && parent.dataset.sympos) {
-              var items = parent.dataset.symorder.split(' ');
+              /*var items = parent.dataset.symorder.split(' ');
               var positions = parent.dataset.sympos.split(';');
               var cnt = 0;
               items.forEach(id => {
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
               });
               console.log(positions);
               //var positions = parent.dataset.sym
-
+              */
             } else {
               for (var i = 0; i < itemNames.length; i++) {
                   var els = parent.querySelectorAll('.sym-competence.'+itemNames[i]);
@@ -71,26 +71,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
     (function () {
-        const scroll = new LocomotiveScroll({
+        /*const scroll = new LocomotiveScroll({
             el: document.querySelector('[data-scroll-container]'),
             smooth: true,
             getDirection: true
-        });
-        scroll.on('scroll', (instance) => {
-            changeOpacityEls();
-            const h = document.documentElement;
-            // console.log(instance.scroll.y);
+        });*/
 
-            h.classList.toggle("direction-up", instance.direction == "up");
-            h.classList.toggle("direction-down", instance.direction == "down");
-            h.classList.toggle("is-top", instance.scroll.y < 100);
-            h.classList.toggle("is-not-top", 100 <= instance.scroll.y);
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+        let direction = false;
+        const h = document.documentElement;
 
-            /*if (instance.scroll.y > 0) {
-              document.querySelector('.main-navigation').classList.add('menu-shrink');
-            } else {
-              document.querySelector('.main-navigation').classList.remove('menu-shrink');
-            }*/
+        function handleNavbar(scrollPos) {
+          // Do something with the scroll position
+          if (scrollPos > lastKnownScrollPosition) {
+            direction = 'down'
+          } else {
+            direction = 'up'
+          }
+          lastKnownScrollPosition = scrollPos;
+
+          h.classList.toggle("direction-up", direction == "up");
+          h.classList.toggle("direction-down", direction == "down");
+          h.classList.toggle("is-top", lastKnownScrollPosition < 100);
+          h.classList.toggle("is-not-top", 100 <= lastKnownScrollPosition);
+        }
+
+        document.addEventListener('scroll', function(e) {
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              handleNavbar(window.scrollY);
+              ticking = false;
+            });
+            ticking = true;
+          }
         });
     })();
 });
@@ -249,3 +263,20 @@ function isInView(rect) {
   if(rect.bottom > 0 && rect.top < winHeight) return true;
   return false;
 }
+
+/** MOUSE CURSOR */
+document.addEventListener("DOMContentLoaded", function(event) { 
+	const cursorTag = document.querySelector("div.cursor");
+  const cursorText = document.querySelector(".cursor-text");
+  
+  const activeAreas = document.querySelectorAll("[data-cursor]");
+  activeAreas.forEach(active => {
+  console.log(active);
+  	active.addEventListener("mouseover", function() {
+    	cursorText.innerHTML = active.getAttribute("data-cursor");
+    });
+    active.addEventListener("mouseout", function() {
+    	cursorText.innerHTML = "";
+    })
+  });
+});

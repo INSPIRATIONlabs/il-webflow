@@ -3,16 +3,17 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Magnetic Buttons with Hover Effects | Demo 1 | Codrops</title>
+		<title>Magnetic Buttons with Hover Effects | Demo 4 | Codrops</title>
 		<meta name="description" content="A set of buttons with a magnetic interaction and some hover effect." />
 		<meta name="keywords" content="css button, magnetic, hover, ui, javascript, web design" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" href="https://use.typekit.net/jpv1bvw.css">
-		<link rel="stylesheet" type="text/css" href="./button.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo4/button.css" />
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 	</head>
-	<body class="demo-1">
+	<body class="demo-4">
 		<main>
 			<header class="header">
 				<h1 class="header__title">Magnetic Buttons inspired by <a href="https://cuberto.com/services/">Cuberto</a></h1>
@@ -23,40 +24,18 @@
 				</div>
 			</header>
 			<div class="content">
-                <div class="button-wrap">
-                    <a class="button simplex" href="//google.com">
-                        <span class="button__text">
-                            <span class="button__text-inner">Send</span>
-                        </span>
-						<span class="button__arrow_circle">
-							<span class="button__arrow"></span>
-						</span>
-                    </a>
-                </div>
-                <div class="button-wrap">
-                    <button class="button circles">
-                        <div class="button__deco button__deco--2"></div>
-                        <div class="button__deco button__deco--1"></div>
-                        <span class="button__text">
-                            <span class="button__text-inner">start</span>
-                        </span>
-                    </button>
-                </div>
-                <div class="button-wrap">
-                    <button class="button rounded">
-                        <div class="button__filler"></div>
-                        <span class="button__text">
-                            <span class="button__text-inner">Watch<span class="button__arrow">---></span></span>
-                            
-                        </span>
-                    </button>
-                </div>
+				<button class="button">
+					<div class="button__filler"></div>
+					<span class="button__text">
+						<span class="button__text-inner">Watch</span>
+					</span>
+				</button>
 			</div>
 			<nav class="demos">
-				<a href="index.html" class="demo demo--current" aria-label="Demo 1"></a>
+				<a href="index.html" class="demo" aria-label="Demo 1"></a>
 				<a href="index2.html" class="demo" aria-label="Demo 2"></a>
 				<a href="index3.html" class="demo" aria-label="Demo 3"></a>
-				<a href="index4.html" class="demo" aria-label="Demo 4"></a>
+				<a href="index4.html" class="demo demo--current" aria-label="Demo 4"></a>
 				<a href="index5.html" class="demo" aria-label="Demo 5"></a>
 				<a href="index6.html" class="demo" aria-label="Demo 6"></a>
 			</nav>
@@ -64,9 +43,7 @@
 		<svg class="cursor" width="25" height="25" viewBox="0 0 25 25">
 			<circle class="cursor__inner" cx="12.5" cy="12.5" r="6.25"/>
 		</svg>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-		<script type="module" src="../../js/cursor.js"></script>
-		<script src="../../js/demo.js"></script>
-		<script type="module" src="ilbuttons.js"></script>
+		<script src="js/demo.js"></script>
+		<script src="js/demo4/index.js"></script>
 	</body>
 </html>
