@@ -29,12 +29,12 @@ body {
 
 /* Fade effect */
 .js body {
-	opacity: 0;
-	transition: opacity 0.3s;
+	/* opacity: 0; */
+	/* transition: opacity 0.3s; */
 }
 
 .js body.render {
-	opacity: 1;
+	/* opacity: 1; */
 }
 
 /* Page Loader */
@@ -242,15 +242,15 @@ body {
 	border-width: 0;
 	border-style: none;
 	color: var(--button-text);
-	/*background: var(--button-bg);*/
+	background: var(--button-bg);
 	border-radius: var(--button-border-radius);
 	min-width: 12rem;
 	height: 5rem;
-	padding: 0;
+	padding: 0 10px;
 	margin: 1rem;
 	font-family: inherit;
 	font-size: 1.5rem;
-	overflow: hidden;
+	/* overflow: hidden; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -275,11 +275,23 @@ body {
 }
 
 .button.simplex .button__text-inner {
-background-image: url('../../assets/link-arrow-black.svg');
-background-repeat: no-repeat;
-background-position: 100% center;
 display: inline-block;
 padding-right: 40px;
+}
+
+.button.simplex .button__arrow_circle {
+	display: flex;
+	border: 1px solid red;
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+}
+.button.simplex .button__arrow_circle .button__arrow {
+	background-image: url('../../assets/link-arrow-white.svg');
+	background-repeat: no-repeat;
+	background-position: 10% center;
+	width: 120px;
+	height: 120px;
 }
 
 .button.rounded {

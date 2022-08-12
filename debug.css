@@ -1,0 +1,11 @@
+.button-simplex {
+background-color: red;
+}
+
+.button-inner-arrow {
+    background-image: url('../../assets/link-arrow-black.svg');
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    display: inline-block;
+    padding-right: 40px;
+}

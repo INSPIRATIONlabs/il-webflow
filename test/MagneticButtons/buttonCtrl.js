@@ -16,7 +16,8 @@ export class ButtonCtrlSimplex extends EventEmitter {
         // el: main button
         // text/textinner: inner text elements
         this.DOM = {el: el};
-        this.DOM.text = this.DOM.el.querySelector('.button__text');
+        this.DOM.text = this.DOM.el.querySelector('.button__arrow_circle');
+        this.DOM.arrow = this.DOM.el.querySelector('.button__arrow');
         this.DOM.textinner = this.DOM.el.querySelector('.button__text-inner');
         // amounts the button will translate
         this.renderedStyles = {
@@ -36,7 +37,21 @@ export class ButtonCtrlSimplex extends EventEmitter {
     }
     calculateSizePosition() {
         // size/position
-        this.rect = this.DOM.el.getBoundingClientRect();
+        var rect = this.DOM.el.getBoundingClientRect();
+        this.rect = {
+            top: rect.top,
+            right: rect.right,
+            bottom: rect.bottom,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            x: rect.x,
+            y: rect.y
+        }; 
+        console.log(this.rect);
+        this.rect.top += window.scrollY;
+        this.rect.left += window.scrollX;
+        console.log(this.rect);
         // the movement will take place when the distance from the mouse to the center of the button is lower than this value
         this.distanceToTrigger = this.rect.width*0.7;
     }
@@ -45,8 +60,14 @@ export class ButtonCtrlSimplex extends EventEmitter {
         window.addEventListener('resize', this.onResize);
     }
     render() {
+        // console.log({
+        //     mousex: mousepos.x,
+        //     mousey: mousepos.y,
+        // });
+        // console.log(this.rect);
         // calculate the distance from the mouse to the center of the button
         const distanceMouseButton = distance(mousepos.x+window.scrollX, mousepos.y+window.scrollY, this.rect.left + this.rect.width/2, this.rect.top + this.rect.height/2);
+        console.log({distance: distanceMouseButton});
         // new values for the translations
         let x = 0;
         let y = 0;
@@ -69,7 +90,7 @@ export class ButtonCtrlSimplex extends EventEmitter {
             this.renderedStyles[key].previous = lerp(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
         }
 
-        this.DOM.el.style.transform = `translate3d(${this.renderedStyles['tx'].previous}px, ${this.renderedStyles['ty'].previous}px, 0)`;
+        this.DOM.arrow.style.transform = `translate3d(${this.renderedStyles['tx'].previous}px, ${this.renderedStyles['ty'].previous}px, 0)`;
         this.DOM.text.style.transform = `translate3d(${-this.renderedStyles['tx'].previous*0.6}px, ${-this.renderedStyles['ty'].previous*0.6}px, 0)`;
 
         requestAnimationFrame(() => this.render());
